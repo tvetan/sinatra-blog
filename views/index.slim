@@ -1,0 +1,8 @@
+h1 Posts
+a href='/posts/new' Add a new page
+-if @posts.any?
+  ul.pages
+  - @posts.each do |post|
+    == slim :page, :locals => { post: post }
+- else
+  p No posts here!

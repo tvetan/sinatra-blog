@@ -1,0 +1,7 @@
+h1 Edit Post
+form action="/posts/#{@post.id}" method="POST"
+  input type="hidden" name="_method" value="PUT"
+  fieldset
+    legend Edit post
+    == slim :form
+  input type="submit" value="Update"

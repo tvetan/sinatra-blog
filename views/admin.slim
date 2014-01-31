@@ -1,0 +1,12 @@
+#admin
+  nav
+    ul
+      li
+        a.round.button href='/' Posts
+      li
+        a.round.button href='/posts/new' Add a post
+      - if @post
+        li
+          a.round.button href="/posts/#{@post.id}/edit" Edit this post
+        li
+          a.round.button href="/posts/delete/#{@post.id}" Delete this post a.rounded.button href="/logout" Log Out
