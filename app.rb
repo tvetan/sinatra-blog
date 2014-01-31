@@ -2,7 +2,8 @@ require 'sinatra'
 require 'sinatra/base'
 require 'sinatra/twitter-bootstrap'
 
-require_relative './url_helpers'
+require Dir.pwd + '/models/post'
+require Dir.pwd + '/helpers/url_helpers'
 
 class BlogApplication < Sinatra::Base
   register Sinatra::Twitter::Bootstrap::Assets
