@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+ruby "2.1.0"
+gem "minitest"
+gem "minitest-colorize"
+gem "sinatra"
+gem "sinatra-twitter-bootstrap"
+gem "slim"
+gem "sass"
+gem "mongoid"
+gem 'tilt', '~> 1.4.1'
+gem "rack-test"
