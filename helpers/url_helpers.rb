@@ -1,6 +1,6 @@
 module UrlHelpers
-    def new_todo_path
-      "/todos/new"
+    def new_post_path
+      "/posts/new"
     end
 
     def link_to(text, path, options = {})

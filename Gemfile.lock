@@ -26,6 +26,10 @@ GEM
     sass (3.2.13)
     sinatra (1.0)
       rack (>= 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
+    sinatra-redirect-with-flash (0.2.1)
+      sinatra (>= 1.0.0)
     sinatra-twitter-bootstrap (2.3.3)
     slim (2.0.2)
       temple (~> 0.6.6)
@@ -33,6 +37,8 @@ GEM
     temple (0.6.7)
     tilt (1.4.1)
     tzinfo (0.3.38)
+    warden (1.2.1)
+      rack (>= 1.0)
 
 PLATFORMS
   x86-mingw32
@@ -44,6 +50,9 @@ DEPENDENCIES
   rack-test
   sass
   sinatra
+  sinatra-flash
+  sinatra-redirect-with-flash
   sinatra-twitter-bootstrap
   slim
   tilt (~> 1.4.1)
+  warden (= 1.2.1)

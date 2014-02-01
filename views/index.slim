@@ -1,5 +1,11 @@
 h1 Posts
 a href='/posts/new' Add a new page
+p class="alert"
+  == flash[:error]
+p 
+  == request.path_info
+p
+  == request.url.chomp request.path_info
 -if @posts.any?
   ul.pages
   - @posts.each do |post|
