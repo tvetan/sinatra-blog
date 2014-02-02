@@ -7,4 +7,8 @@ html
     a.rounded.button href="/login" Log In
     h1.logo
       a href="/" Simple Sinatra CMS
+    p
+      == flash[:success]
+    p
+      == flash[:error]
     == yield

@@ -1,3 +1,4 @@
+require 'mongoid'
 require_relative './test_helper'
 
 describe BlogApplication do

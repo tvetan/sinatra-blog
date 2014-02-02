@@ -7,7 +7,18 @@ GEM
     activesupport (3.2.16)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
+    addressable (2.3.5)
+    bcrypt-ruby (3.1.2)
+    bcrypt-ruby (3.1.2-x86-mingw32)
     builder (3.0.4)
+    dm-core (1.2.1)
+      addressable (~> 2.3)
+    dm-migrations (1.2.0)
+      dm-core (~> 1.2.0)
+    dm-timestamps (1.2.0)
+      dm-core (~> 1.2.0)
+    dm-validations (1.2.0)
+      dm-core (~> 1.2.0)
     i18n (0.6.9)
     minitest (5.2.2)
     minitest-colorize (0.0.5)
@@ -17,20 +28,36 @@ GEM
       moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
+    mongoid-bcrypt-ruby (0.0.2)
+      bcrypt-ruby
     moped (1.5.1)
     multi_json (1.8.4)
     origin (1.1.0)
     rack (1.5.2)
+    rack-flash (0.1.2)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rufus-tokyo (1.0.7)
     sass (3.2.13)
     sinatra (1.0)
       rack (>= 1.0)
+    sinatra-authentication (0.4.1)
+      dm-core
+      dm-migrations
+      dm-timestamps
+      dm-validations
+      rack-flash
+      rufus-tokyo
+      sinatra
+      sinbook
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
     sinatra-redirect-with-flash (0.2.1)
       sinatra (>= 1.0.0)
     sinatra-twitter-bootstrap (2.3.3)
+    sinbook (0.1.9)
+      yajl-ruby
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -39,17 +66,22 @@ GEM
     tzinfo (0.3.38)
     warden (1.2.1)
       rack (>= 1.0)
+    yajl-ruby (1.2.0)
 
 PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  bcrypt-ruby (~> 3.1.2)
+  builder
   minitest
   minitest-colorize
   mongoid
+  mongoid-bcrypt-ruby
   rack-test
   sass
   sinatra
+  sinatra-authentication
   sinatra-flash
   sinatra-redirect-with-flash
   sinatra-twitter-bootstrap

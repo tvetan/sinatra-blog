@@ -1,5 +1,6 @@
 ENV["RACK_ENV"] = "test"
 
+require 'mongoid'
 require 'bundler/setup'
 require './app'
 

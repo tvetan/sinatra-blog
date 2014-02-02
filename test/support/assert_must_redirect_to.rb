@@ -1,3 +1,5 @@
+require 'mongoid'
+
 module MiniTest::Assertions
   def assert_must_redirect_to(test, path)
     test.follow_redirect!
