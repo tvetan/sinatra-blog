@@ -2,13 +2,28 @@ doctype html
 html
   head
     title= @title || "Simple Sinatra CMS"
-    link rel="stylesheet" href="/public/application.scss"
+    link rel="stylesheet" href="application.css"
+    == bootstrap_assets
+    /[if lt IE 9]
+      script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"
   body
-    a.rounded.button href="/login" Log In
-    h1.logo
-      a href="/" Simple Sinatra CMS
-    p
-      == flash[:success]
-    p
-      == flash[:error]
-    == yield
+    div.navbar.navbar-fixed-top
+      div.navbar-inner
+        div.container
+          a.brand href="/" Sinatra Blog
+          div.nav-collapse
+            ul.nav
+              li
+                a href="/" Home
+          a.rounded.button.pull-right href="/login" Log In
+    div.container
+      h1.logo
+        a href="/" Simple Sinatra CMS
+      p
+        == flash[:success]
+      p
+        == flash[:error]
+      == yield
+    footer.main
+      div.container
+        p.muted.credit &copy; #{Time.now.year} Sinatra Blog

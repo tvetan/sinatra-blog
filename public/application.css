@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  padding: 60px 0 40px 0;
+  font: 13px/1.2 helvetica, arial, sans-serif; }
+  body footer.main {
+    background-color: #f1f1f1;
+    color: #fff;
+    padding: 20px;
+    margin-top: 20px; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0166ff; }
+
+.logo {
+  background: #444;
+  margin: 0;
+  padding: 20px 10px;
+  font-size: 44px; }
+  .logo a, .logo a:visited {
+    color: #0166ff;
+    text-decoration: none; }
+
+.button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 4px;
+  color: #fff;
+  background: #0166ff;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  width: auto; }
+  .button:hover {
+    background: #003d9a; }
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 16px; }
+
+form, input, textarea {
+  width: 100%; }
+
+input, textarea {
+  border: #ccc 1px solid;
+  padding: 10px 5px;
+  font-size: 16px; }
