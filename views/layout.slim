@@ -2,8 +2,9 @@ doctype html
 html
   head
     title= @title || "Simple Sinatra CMS"
-    link rel="stylesheet" href="application.css"
     == bootstrap_assets
+    link rel="stylesheet" href="application.css"
+
     /[if lt IE 9]
       script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"
   body
@@ -17,13 +18,19 @@ html
                 a href="/" Home
           a.rounded.button.pull-right href="/login" Log In
     div.container
-      h1.logo
-        a href="/" Simple Sinatra CMS
       p
         == flash[:success]
       p
         == flash[:error]
-      == yield
+      div.container
+        div.span8
+          == yield
+        aside.span3
+          div.box
+            p pesho 
+              fdasfsdf
+            div= new_post_path
+
     footer.main
       div.container
-        p.muted.credit &copy; #{Time.now.year} Sinatra Blog
+        p &copy; #{Time.now.year} Sinatra Blog

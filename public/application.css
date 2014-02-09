@@ -1,9 +1,35 @@
 body {
+  font-family: 'Open Sans', Arial, sans-serif;
   margin: 0;
-  padding: 60px 0 40px 0;
-  font: 13px/1.2 helvetica, arial, sans-serif; }
+  padding: 60px 0 0 0;
+  background-color: #f1f4f9;
+  font: 16px/1.2; }
+  body .button-rectangle {
+    display: inline-block;
+    text-decoration: none;
+    padding: 8px 20px;
+    line-height: 20px;
+    font-size: 14px;
+    text-shadow: none;
+    border: none;
+    font-weight: 700;
+    cursor: pointer; }
+  body .button-info {
+    background-color: #0166ff;
+    color: white; }
+    body .button-info:hover {
+      background-color: #0166DA; }
+  body .box {
+    background: #fff;
+    padding: 40px 30px 30px 30px;
+    margin-bottom: 10px; }
+    body .box.post-main {
+      min-height: 350px;
+      max-height: 350px;
+      overflow: hidden;
+      width: 310px; }
   body footer.main {
-    background-color: #f1f1f1;
+    background-color: #30abd5;
     color: #fff;
     padding: 20px;
     margin-top: 20px; }
