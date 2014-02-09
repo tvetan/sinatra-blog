@@ -1,6 +1,9 @@
-h1= @post.title
-- if @post.content
-  == @post.content
- 
-a.button href="/posts/#{@post.id}/edit" Edit
-a.button href="/posts/delete/#{@post.id}" Delete
+div.box.post
+  header.post-header
+    h1= @post.title
+  div.post-content
+    - if @post.content
+      == @post.content
+  div
+    a.button href="/posts/#{@post.id}/edit" Edit
+    a.button href="/posts/delete/#{@post.id}" Delete

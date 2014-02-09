@@ -28,14 +28,17 @@ body {
       max-height: 350px;
       overflow: hidden;
       width: 310px; }
+    body .box.post header h1 {
+      font-size: 46px;
+      line-height: 46px;
+      padding: 15px 3px;
+      margin: 0 0 15px 0;
+      border-bottom: 1px solid whitesmoke; }
   body footer.main {
     background-color: #30abd5;
     color: #fff;
     padding: 20px;
     margin-top: 20px; }
-
-h1, h2, h3, h4, h5, h6 {
-  color: #0166ff; }
 
 .logo {
   background: #444;
