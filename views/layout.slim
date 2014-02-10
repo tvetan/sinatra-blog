@@ -16,7 +16,11 @@ html
             ul.nav
               li
                 a href="/" Home
-          a.rounded.button.pull-right href="/login" Log In
+          - if logged_in
+            a.pull-right href="/logout" Log out
+          - else
+            a.pull-right href="/login" Log In 
+            a.pull-right href="/signup" Register /
     div.container
       p
         == flash[:success]

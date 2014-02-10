@@ -13,11 +13,12 @@ require 'sinatra/reloader' if development?
 
 require Dir.pwd + '/helpers/url_helpers'
 require Dir.pwd + '/helpers/content_helpers'
+require Dir.pwd + '/helpers/authorization_helpers'
 
 class BlogApplication < Sinatra::Base
   register Sinatra::Twitter::Bootstrap::Assets
-  #use Rack::Session::Cookie, :key => 'rack.session1', :path => '/', :secret => 'nothingissecretontheinternet'
-  use Rack::Session::Cookie, :secret => 'Y0ur s3cret se$$ion key'
+  use Rack::Session::Cookie, :key => 'rack.session1', :path => '/', :secret => 'nothingissecretontheinternet'
+  #use Rack::Session::Cookie, :secret => 'Y0ur s3cret se$$ion key'
   SITE_TITLE = "BlogApplication"
 
   set :environment, 'development'
@@ -73,9 +74,9 @@ class BlogApplication < Sinatra::Base
 
   helpers UrlHelpers
   helpers ContentHelpers
+  helpers AuthorizationHelpers
 
   get '/' do
-    puts "1111111111<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
     @posts = Post.all
     flash[:error] = 'No posts found.' if @posts.empty?
     @title = "Simple CMS: Page List"
@@ -83,9 +84,7 @@ class BlogApplication < Sinatra::Base
   end
 
   get '/:permalink' do
-
     begin
-      puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       @post = Post.find_by(permalink: params[:permalink])
     rescue
       pass
@@ -96,7 +95,7 @@ class BlogApplication < Sinatra::Base
   end
 
   get '/rss.xml' do
-    logged_in?
+    login_required
     @posts = Post.all
     builder :rss  
   end
@@ -140,50 +139,134 @@ class BlogApplication < Sinatra::Base
 
   # Authentication
 
-  get '/auth/login' do
-    erb :login
-  end
-
-  get '/auth/register' do
-    @user = User.new
-    erb :register
-  end
-
-  post '/auth/register' do
-    user = User.create(params[:user])
-    redirect to("/")
-  end
-
-  post '/auth/login' do
-    env['warden'].authenticate!
-
-    flash[:success] = env['warden'].message
-
-    if session[:return_to].nil?
-      redirect '/'
+  get '/logged_in' do
+    if session[:user]
+      "true"
     else
-      redirect session[:return_to]
+      "false"
     end
   end
 
-  get '/auth/logout' do
-    env['warden'].raw_session.inspect
-    env['warden'].logout
-    flash[:success] = 'Successfully logged out'
-    redirect '/'
+  get '/signup/?' do
+    if session[:user]
+      redirect '/'
+    else
+      slim :register
+    end
   end
 
-  post '/auth/unauthenticated' do
-    puts "unauthenticated"
-    session[:return_to] = env['warden.options'][:attempted_path]
-    puts env['warden.options'][:attempted_path]
-    flash[:error] = env['warden'].message || "You must log in"
-    redirect '/auth/login'
+  get '/login/?' do
+    if session[:user]
+      redirect '/'
+    else
+      slim :login
+    end
   end
 
-  get '/protected' do
-    env['warden'].authenticate!
-    @current_user = env['warden'].user
-    erb :protected
+  post '/login/?' do
+    if user = User.authenticate(params[:email], params[:password])
+      session[:user] = user.id
+
+      if Rack.const_defined?('Flash')
+        flash[:notice] = "Login successful."
+      end
+
+      if session[:return_to]
+        redirect_url = session[:return_to]
+        session[:return_to] = false
+        redirect redirect_url
+      else
+        redirect '/'
+      end
+    else
+      if Rack.const_defined?('Flash')
+        flash[:error] = "The email or password you entered is incorrect."
+      end
+      redirect '/login'
+    end
   end
+
+  get '/logout/?' do
+    session[:user] = nil
+    if Rack.const_defined?('Flash')
+      flash[:notice] = "Logout successful."
+    end
+    return_to = ( session[:return_to] ? session[:return_to] : '/' )
+    redirect return_to
+  end
+
+  post '/signup/?' do
+    @user = User.create(params[:user])
+    puts @user.id.to_s + " "+ @user.password + " " + @user.email
+    if not @user.id.nil?
+      session[:user] = @user.id
+      if Rack.const_defined?('Flash')
+        flash[:notice] = "Account created."
+      end
+      redirect '/'
+    else
+      if Rack.const_defined?('Flash')
+        flash[:error] = "There were some problems creating your account: #{@user.errors}."
+      end
+      redirect '/signup?'# + hash_to_query_string(params['user'])
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+  # get '/auth/login' do
+  #   erb :login
+  # end
+
+  # get '/auth/register' do
+  #   @user = User.new
+  #   erb :register
+  # end
+
+  # post '/auth/register' do
+  #   user = User.create(params[:user])
+  #   redirect to("/")
+  # end
+
+  # post '/auth/login' do
+  #   env['warden'].authenticate!
+
+  #   flash[:success] = env['warden'].message
+
+  #   if session[:return_to].nil?
+  #     redirect '/'
+  #   else
+  #     redirect session[:return_to]
+  #   end
+  # end
+
+  # get '/auth/logout' do
+  #   env['warden'].raw_session.inspect
+  #   env['warden'].logout
+  #   flash[:success] = 'Successfully logged out'
+  #   redirect '/'
+  # end
+
+  # post '/auth/unauthenticated' do
+  #   puts "unauthenticated"
+  #   session[:return_to] = env['warden.options'][:attempted_path]
+  #   puts env['warden.options'][:attempted_path]
+  #   flash[:error] = env['warden'].message || "You must log in"
+  #   redirect '/auth/login'
+  # end
+
+  # get '/protected' do
+  #   env['warden'].authenticate!
+  #   @current_user = env['warden'].user
+  #   erb :protected
+  # end
 end
