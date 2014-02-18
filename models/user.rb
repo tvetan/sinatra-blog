@@ -10,6 +10,11 @@ class User
   field :salt
   field :permission_level, :type => Integer, :default => 1
 
+  # Relations
+
+  has_many :posts
+  has_many :comments
+
   # Validations
   validates_uniqueness_of :email
   validates_format_of :email, :with => /(\A(\s*)\Z)|(\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z)/i
