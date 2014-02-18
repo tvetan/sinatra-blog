@@ -1,4 +1,8 @@
 h1
+  div
+    span class="badge" =post.comments.length
+    span class="label label-info" =post.created_at
+    span class="label label-info" =post.user.email
   a href="#{post.permalink}" =post.title
 div
   = cut_content post.content

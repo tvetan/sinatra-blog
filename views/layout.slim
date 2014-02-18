@@ -25,10 +25,13 @@ html
               a.pull-right href="/login" Log In 
               a.pull-right href="/signup" Register /
     div.container
-      p
-        == flash[:success]
-      p
-        == flash[:error]
+      -if flash[:success]
+        p
+          == flash[:success]
+
+      - if flash[:error]
+        p class="alert" 
+          == flash[:error]
       div.container
         div.span8
           == yield

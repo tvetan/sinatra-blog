@@ -1,19 +1,13 @@
 h1
   | Posts
   a.button-rectangle.button-info.pull-right href='/posts/new'  Add a new post
-- if flash[:error]
-  p class="alert" 
-    == flash[:error]
 p
   == request.url.chomp request.path_info
 -if @posts.any?
   div.row
     - @posts.each_slice(2) do |post1, post2|
-      /== post.permalink
       div.box.span3.post-main
         == slim :post, :locals => { post: post1 }
       -if not post2.nil?
         div.box.span3.post-main
           == slim :post, :locals => { post: post2 }
-- else
-  p No posts here!

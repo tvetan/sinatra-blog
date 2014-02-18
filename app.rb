@@ -39,6 +39,10 @@ class BlogApplication < Sinatra::Base
   helpers ContentHelpers
   helpers AuthorizationHelpers
 
+  not_found do
+    slim :"404"
+  end
+
   get '/' do
     @posts = Post.all
     flash[:error] = 'No posts found.' if @posts.empty?
@@ -102,12 +106,16 @@ class BlogApplication < Sinatra::Base
 
   post '/posts' do
      post = Post.create(params[:post])
+     post.user = current_user
+     post.save
+
      redirect to("#{post.permalink}")
   end
 
   # User Routes
 
   get '/user/edit' do
+    login_required
     @user = current_user
     slim :user_edit
   end
