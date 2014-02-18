@@ -20,6 +20,12 @@ body{
     font-weight: 700;
     cursor: pointer;
   }
+  
+  .user_information{
+    .user_email{
+      margin-right: 5px;
+    }
+  }
 
   .button-info{
     background-color: $blue;

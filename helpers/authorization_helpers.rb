@@ -10,7 +10,8 @@ module AuthorizationHelpers
       return false
     end
   end
-   def current_user
+
+  def current_user
     if session[:user]
       User.where(:id => session[:user]).first
     else

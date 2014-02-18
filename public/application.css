@@ -14,6 +14,8 @@ body {
     border: none;
     font-weight: 700;
     cursor: pointer; }
+  body .user_information .user_email {
+    margin-right: 5px; }
   body .button-info {
     background-color: #0166ff;
     color: white; }

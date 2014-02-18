@@ -3,7 +3,7 @@ html
   head
     title= @title || "Simple Sinatra CMS"
     == bootstrap_assets
-    link rel="stylesheet" href="application.css"
+    link rel="stylesheet" href="/application.css" type="text/css"
 
     /[if lt IE 9]
       script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"
@@ -16,11 +16,14 @@ html
             ul.nav
               li
                 a href="/" Home
-          - if logged_in
-            a.pull-right href="/logout" Log out
-          - else
-            a.pull-right href="/login" Log In 
-            a.pull-right href="/signup" Register /
+          div.pull-right.user_information
+            - if logged_in
+              | Hello, 
+              a.user_email href="/user/edit" ==current_user.email
+              a href="/logout" Log out
+            - else
+              a.pull-right href="/login" Log In 
+              a.pull-right href="/signup" Register /
     div.container
       p
         == flash[:success]

@@ -19,16 +19,18 @@ class BlogApplication < Sinatra::Base
   use Rack::Session::Cookie, :key => 'rack.session1', :path => '/', :secret => 'nothingissecretontheinternet'
   SITE_TITLE = "BlogApplication"
 
-  set :environment, 'development'
-  set :public, 'public'
-  set :views,  'views'
+  
 
   configure :development do
     enable :sessions
     register Sinatra::Flash
     Mongoid.load!("./mongoid.yml")
+    set :environment, 'development'
+    set :public, 'public'
+    set :views,  'views'
   end
 
+  require Dir.pwd + '/models/comment'
   require Dir.pwd + '/models/post'
   require Dir.pwd + '/models/tag'
   require Dir.pwd + '/models/user'
@@ -43,6 +45,10 @@ class BlogApplication < Sinatra::Base
     @title = "Simple CMS: Page List"
     slim :index
   end
+
+  # get '/application.css' do
+  #   scss :style
+  # end
 
   get '/:permalink' do
     begin
@@ -61,6 +67,7 @@ class BlogApplication < Sinatra::Base
     builder :rss  
   end
 
+  # Posts routes
   get '/posts/new' do
     @post = Post.new
     slim :new
@@ -96,6 +103,20 @@ class BlogApplication < Sinatra::Base
   post '/posts' do
      post = Post.create(params[:post])
      redirect to("#{post.permalink}")
+  end
+
+  # User Routes
+
+  get '/user/edit' do
+    @user = current_user
+    slim :user_edit
+  end
+
+  put '/user' do
+    login_required
+    user = current_user
+    user.update_attributes(params[:user])
+    redirect to("/user/edit")
   end
 
   # Authentication
