@@ -52,7 +52,8 @@ body {
   body .box {
     background: #fff;
     padding: 40px 30px 30px 30px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    word-wrap: break-word; }
     body .box.post-main {
       min-height: 350px;
       max-height: 350px;
