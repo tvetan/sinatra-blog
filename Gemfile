@@ -3,7 +3,6 @@ ruby "2.0.0"
 gem "minitest"
 gem "sinatra-reloader"
 gem "minitest-colorize"
-#gem "sinatra"
 gem "sinatra-twitter-bootstrap"
 gem "slim"
 gem "haml"
@@ -20,3 +19,4 @@ gem 'sinatra-authentication'
 gem 'mongoid-bcrypt-ruby'
 gem 'sinatra', git: 'https://github.com/juanpastas/sinatra.git'
 gem 'sinatra-contrib', git: 'https://github.com/sinatra/sinatra-contrib.git'
+gem "redcarpet"

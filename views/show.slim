@@ -24,6 +24,6 @@ section.comments
     div id="respond" class="comment-respond"
       h3 id="reply-title" class="comment-reply-title" Leave a Comment
       form.comment-form.group action="/comment/new" method="POST" id="commentform"
-        textarea name="comment[content]" value="comment[content]"
+        textarea.comment_content_textarea name="comment[content]" value="comment[content]"
         input type="hidden"  name="postId" value= "#{@post.id}"
         input.pull-right.button-rectangle.button-info name="submit" type="submit" id="submit" value="Post Comment"

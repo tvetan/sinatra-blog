@@ -40,6 +40,9 @@ body{
         background: transparent url('/line.png') repeat-x bottom left;
         border-bottom: 1px solid white;
       }
+      .comment_content_textarea{
+        height: 200px;
+      }
 
       .comment-list{
         .reply-title{

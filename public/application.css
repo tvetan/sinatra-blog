@@ -36,6 +36,8 @@ body {
       margin-bottom: 20px;
       background: transparent url("/line.png") repeat-x bottom left;
       border-bottom: 1px solid white; }
+    body .comments .comment_content_textarea {
+      height: 200px; }
     body .comments .comment-list .reply-title {
       color: #6BC083;
       padding: 10px 0px;

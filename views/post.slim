@@ -5,5 +5,5 @@ h1
     span class="label label-info" =post.user.email
   a href="#{post.permalink}" =post.title
 div
-  = cut_content post.content
+  == markdown cut_content post.content
   a href="#{post.permalink}" READ MORE
