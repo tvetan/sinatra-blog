@@ -12,3 +12,4 @@ p
       -if not post2.nil?
         div.box.span3.post-main
           == slim :post, :locals => { post: post2 }
+    == paginate @result, { items_per_page: 4 }

@@ -10,16 +10,20 @@ require 'mongoid'
 require 'bcrypt'
 require 'sinatra/reloader' if development?
 require 'redcarpet'
+require 'sinatra/paginate'
 
 require Dir.pwd + '/helpers/url_helpers'
 require Dir.pwd + '/helpers/content_helpers'
 require Dir.pwd + '/helpers/authorization_helpers'
+
+
 
 class BlogApplication < Sinatra::Base
   register Sinatra::Twitter::Bootstrap::Assets
   use Rack::Session::Cookie, :key => 'rack.session1', :path => '/', :secret => 'nothingissecretontheinternet'
   SITE_TITLE = "BlogApplication"
 
+  register Sinatra::Paginate
   configure :development do
     enable :sessions
     register Sinatra::Flash
@@ -33,17 +37,25 @@ class BlogApplication < Sinatra::Base
   require Dir.pwd + '/models/post'
   require Dir.pwd + '/models/tag'
   require Dir.pwd + '/models/user'
+  Struct.new('Result', :total, :size, :posts)
 
   helpers UrlHelpers
   helpers ContentHelpers
   helpers AuthorizationHelpers
+
+  helpers do
+    def page
+      [params[:page].to_i - 1, 0].max
+    end
+  end
 
   not_found do
     slim :"404"
   end
 
   get '/' do
-    @posts = Post.all.sort { |a,b| b.created_at <=> a.created_at }
+    @posts = Post.all.limit(4).skip(page * 4).sort { |a,b| b.created_at <=> a.created_at }
+    @result = Struct::Result.new(Post.count, @posts.count, @posts)
     flash[:error] = 'No posts found.' if @posts.empty?
     @title = "Simple CMS: Page List"
     slim :index
@@ -100,11 +112,11 @@ class BlogApplication < Sinatra::Base
   end
 
   post '/posts' do
-     post = Post.create(params[:post])
-     post.user = current_user
-     post.save
+    post = Post.create(params[:post])
+    post.user = current_user
+    post.save
 
-     redirect to("#{post.permalink}")
+    redirect to("#{post.permalink}")
   end
 
   # User Routes
