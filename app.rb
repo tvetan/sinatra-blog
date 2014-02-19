@@ -9,6 +9,7 @@ require 'haml'
 require 'mongoid'
 require 'bcrypt'
 require 'sinatra/reloader' if development?
+require 'redcarpet'
 
 require Dir.pwd + '/helpers/url_helpers'
 require Dir.pwd + '/helpers/content_helpers'
@@ -42,7 +43,7 @@ class BlogApplication < Sinatra::Base
   end
 
   get '/' do
-    @posts = Post.all
+    @posts = Post.all.sort { |a,b| b.created_at <=> a.created_at }
     flash[:error] = 'No posts found.' if @posts.empty?
     @title = "Simple CMS: Page List"
     slim :index
