@@ -19,8 +19,6 @@ class BlogApplication < Sinatra::Base
   use Rack::Session::Cookie, :key => 'rack.session1', :path => '/', :secret => 'nothingissecretontheinternet'
   SITE_TITLE = "BlogApplication"
 
-  
-
   configure :development do
     enable :sessions
     register Sinatra::Flash
@@ -49,10 +47,6 @@ class BlogApplication < Sinatra::Base
     @title = "Simple CMS: Page List"
     slim :index
   end
-
-  # get '/application.css' do
-  #   scss :style
-  # end
 
   get '/:permalink' do
     begin
@@ -125,6 +119,20 @@ class BlogApplication < Sinatra::Base
     user = current_user
     user.update_attributes(params[:user])
     redirect to("/user/edit")
+  end
+
+  # Comment Routes
+
+
+  post '/comment/new' do
+    post = Post.find(params[:postId])
+
+    comment = Comment.new(params[:comment])
+    comment.post = post
+    comment.user = current_user
+    comment.save
+
+    redirect to("#{comment.post.permalink}")
   end
 
   # Authentication

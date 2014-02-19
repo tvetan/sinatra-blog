@@ -26,11 +26,10 @@ html
               a.pull-right href="/signup" Register /
     div.container
       -if flash[:success]
-        p
+        p.alert.alert-success
           == flash[:success]
-
       - if flash[:error]
-        p class="alert" 
+        p.alert.alert-danger
           == flash[:error]
       div.container
         div.span8

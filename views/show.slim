@@ -7,3 +7,23 @@ div.box.post
   div
     a.button href="/posts/#{@post.id}/edit" Edit
     a.button href="/posts/delete/#{@post.id}" Delete
+section.comments
+  header.title.group
+    div.pull-right
+      a.button-rectangle.button-info href="#respond" Leave a comment
+  section.comment-list
+    header.reply-title
+      h1 LEAVE A COMMENT
+    section
+      -if @post.comments.any?
+        -@post.comments.each do |comment|
+          == slim :comment, :locals => { comment: comment }
+      -else
+        p No Comments yet
+  section.comment-form
+    div id="respond" class="comment-respond"
+      h3 id="reply-title" class="comment-reply-title" Leave a Comment
+      form.comment-form.group action="/comment/new" method="POST" id="commentform"
+        textarea name="comment[content]" value="comment[content]"
+        input type="hidden"  name="postId" value= "#{@post.id}"
+        input.pull-right.button-rectangle.button-info name="submit" type="submit" id="submit" value="Post Comment"

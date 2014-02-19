@@ -1,7 +1,18 @@
 
 $blue: #0166FF;
 $white: #fff;
- 
+
+
+.group:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+* html .group             { zoom: 1; } /* IE6 */
+*:first-child+html .group { zoom: 1; } /* IE7 */
+
 body{
   font-family: 'Open Sans', Arial, sans-serif;
   margin: 0;
@@ -20,7 +31,27 @@ body{
     font-weight: 700;
     cursor: pointer;
   }
-  
+
+  .comments{
+    padding: 30px 0 0 0;
+      header.title{
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        background: transparent url('/line.png') repeat-x bottom left;
+        border-bottom: 1px solid white;
+      }
+
+      .comment-list{
+        .reply-title{
+          color: #6BC083;;
+          padding: 10px 0px;
+          font-size: 30px;
+          padding: 25px 0px 10px 0;
+          margin-top: 30px;
+        }
+      }
+  }
+
   .user_information{
     .user_email{
       margin-right: 5px;
