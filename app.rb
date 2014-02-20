@@ -54,9 +54,13 @@ class BlogApplication < Sinatra::Base
   end
 
   get '/' do
-    @posts = params[:searchTerm].nil? ? Post.all : Post.all.keep_if { |post| post.title.include? params[:searchTerm] }
+    @posts = params[:searchTerm].nil? ? Post.all : Post.all.keep_if { |post| post.title.downcase.include? URI.unescape(params[:searchTerm]).downcase}
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    puts URI.unescape(params[:searchTerm]) if not params[:searchTerm].nil?
+    puts "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    posts_length = @posts.length
     @posts = @posts.sort { |a, b| b.created_at <=>  a.created_at}.drop(page * 4).take(4)
-    @result = Struct::Result.new(Post.count, @posts.count, @posts)
+    @result = Struct::Result.new(posts_length, @posts.count, @posts)
     flash[:error] = 'No posts found.' if @posts.empty?
     @title = "Simple CMS: Page List"
     slim :index

@@ -1,5 +1,9 @@
 h1
-  | Posts
+  -if params[:searchTerm].nil?
+    | Posts
+  -else
+    | SEARCHING FOR 
+    =params[:searchTerm]
   -if logged_in
     a.button-rectangle.button-info.pull-right href='/posts/new'  Add a new post
 p
